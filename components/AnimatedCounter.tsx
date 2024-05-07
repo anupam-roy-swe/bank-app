@@ -1,5 +1,5 @@
-import CountUp from "react-countup/build/CountUp";
-
+"use client";
+import CountUp from "react-countup";
 const AnimatedCounter = ({
   amount,
 }: {
@@ -7,7 +7,12 @@ const AnimatedCounter = ({
 }) => {
   return (
     <div>
-      $<CountUp end={100} />{" "}
+      <CountUp
+        end={160527.012}
+        duration={2.75}
+        decimal=','
+        prefix='$ '
+      />
     </div>
   );
 };
