@@ -18,7 +18,6 @@ const DoughnutChart = ({
         label: "Banks",
         data: [
           112500, 115110, 188846, 156454, 122475,
-          111550, 222450, 255550,
         ],
         backgroundColor: [
           "rgb(255, 99, 132)",
@@ -27,7 +26,6 @@ const DoughnutChart = ({
           "#9925be",
 
           "#bea925",
-          "#0f3c4c",
         ],
       },
     ],
@@ -38,16 +36,18 @@ const DoughnutChart = ({
       "Bank 3",
       "Bank 4",
       "Bank 5",
-      "Bank 6",
     ],
   };
   return (
     <Doughnut
       data={data}
       options={{
+        aspectRatio: 2.4,
         cutout: "60%",
         plugins: {
-          legend: { display: false },
+          legend: {
+            display: true,
+          },
         },
       }}
     />

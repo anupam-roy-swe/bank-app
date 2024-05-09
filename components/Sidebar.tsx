@@ -25,7 +25,6 @@ const Sidebar = ({ user }: SiderbarProps) => {
           />
           <h1 className='sidebar-logo'>Bank</h1>
         </Link>
-
         {sidebarLinks.map((item) => {
           const isActive =
             pathName === item.route ||
@@ -59,7 +58,9 @@ const Sidebar = ({ user }: SiderbarProps) => {
             </Link>
           );
         })}
+        USEr
       </nav>
+      FOOTER
     </section>
   );
 };
