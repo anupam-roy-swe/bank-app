@@ -1,7 +1,8 @@
 /* eslint-disable no-prototype-builtins */
-import { type ClassValue, clsx } from "clsx";
-import qs from "query-string";
-import { twMerge } from "tailwind-merge";
+import { type ClassValue, clsx } from 'clsx';
+import qs from 'query-string';
+import { twMerge } from 'tailwind-merge';
+import { z } from 'zod';
 // import { z } from "zod";
 
 export function cn(...inputs: ClassValue[]) {
@@ -14,51 +15,51 @@ export const formatDateTime = (
 ) => {
   const dateTimeOptions: Intl.DateTimeFormatOptions =
     {
-      weekday: "short", // abbreviated weekday name (e.g., 'Mon')
-      month: "short", // abbreviated month name (e.g., 'Oct')
-      day: "numeric", // numeric day of the month (e.g., '25')
-      hour: "numeric", // numeric hour (e.g., '8')
-      minute: "numeric", // numeric minute (e.g., '30')
+      weekday: 'short', // abbreviated weekday name (e.g., 'Mon')
+      month: 'short', // abbreviated month name (e.g., 'Oct')
+      day: 'numeric', // numeric day of the month (e.g., '25')
+      hour: 'numeric', // numeric hour (e.g., '8')
+      minute: 'numeric', // numeric minute (e.g., '30')
       hour12: true, // use 12-hour clock (true) or 24-hour clock (false)
     };
 
   const dateDayOptions: Intl.DateTimeFormatOptions =
     {
-      weekday: "short", // abbreviated weekday name (e.g., 'Mon')
-      year: "numeric", // numeric year (e.g., '2023')
-      month: "2-digit", // abbreviated month name (e.g., 'Oct')
-      day: "2-digit", // numeric day of the month (e.g., '25')
+      weekday: 'short', // abbreviated weekday name (e.g., 'Mon')
+      year: 'numeric', // numeric year (e.g., '2023')
+      month: '2-digit', // abbreviated month name (e.g., 'Oct')
+      day: '2-digit', // numeric day of the month (e.g., '25')
     };
 
   const dateOptions: Intl.DateTimeFormatOptions =
     {
-      month: "short", // abbreviated month name (e.g., 'Oct')
-      year: "numeric", // numeric year (e.g., '2023')
-      day: "numeric", // numeric day of the month (e.g., '25')
+      month: 'short', // abbreviated month name (e.g., 'Oct')
+      year: 'numeric', // numeric year (e.g., '2023')
+      day: 'numeric', // numeric day of the month (e.g., '25')
     };
 
   const timeOptions: Intl.DateTimeFormatOptions =
     {
-      hour: "numeric", // numeric hour (e.g., '8')
-      minute: "numeric", // numeric minute (e.g., '30')
+      hour: 'numeric', // numeric hour (e.g., '8')
+      minute: 'numeric', // numeric minute (e.g., '30')
       hour12: true, // use 12-hour clock (true) or 24-hour clock (false)
     };
 
   const formattedDateTime: string = new Date(
     dateString
-  ).toLocaleString("en-US", dateTimeOptions);
+  ).toLocaleString('en-US', dateTimeOptions);
 
   const formattedDateDay: string = new Date(
     dateString
-  ).toLocaleString("en-US", dateDayOptions);
+  ).toLocaleString('en-US', dateDayOptions);
 
   const formattedDate: string = new Date(
     dateString
-  ).toLocaleString("en-US", dateOptions);
+  ).toLocaleString('en-US', dateOptions);
 
   const formattedTime: string = new Date(
     dateString
-  ).toLocaleString("en-US", timeOptions);
+  ).toLocaleString('en-US', timeOptions);
 
   return {
     dateTime: formattedDateTime,
@@ -72,10 +73,10 @@ export function formatAmount(
   amount: number
 ): string {
   const formatter = new Intl.NumberFormat(
-    "en-US",
+    'en-US',
     {
-      style: "currency",
-      currency: "USD",
+      style: 'currency',
+      currency: 'USD',
       minimumFractionDigits: 2,
     }
   );
@@ -89,7 +90,7 @@ export const parseStringify = (value: any) =>
 export const removeSpecialCharacters = (
   value: string
 ) => {
-  return value.replace(/[^\w\s]/gi, "");
+  return value.replace(/[^\w\s]/gi, '');
 };
 
 interface UrlQueryParams {
@@ -120,28 +121,28 @@ export function getAccountTypeColors(
   type: AccountTypes
 ) {
   switch (type) {
-    case "depository":
+    case 'depository':
       return {
-        bg: "bg-blue-25",
-        lightBg: "bg-blue-100",
-        title: "text-blue-900",
-        subText: "text-blue-700",
+        bg: 'bg-blue-25',
+        lightBg: 'bg-blue-100',
+        title: 'text-blue-900',
+        subText: 'text-blue-700',
       };
 
-    case "credit":
+    case 'credit':
       return {
-        bg: "bg-success-25",
-        lightBg: "bg-success-100",
-        title: "text-success-900",
-        subText: "text-success-700",
+        bg: 'bg-success-25',
+        lightBg: 'bg-success-100',
+        title: 'text-success-900',
+        subText: 'text-success-700',
       };
 
     default:
       return {
-        bg: "bg-green-25",
-        lightBg: "bg-green-100",
-        title: "text-green-900",
-        subText: "text-green-700",
+        bg: 'bg-green-25',
+        lightBg: 'bg-green-100',
+        title: 'text-green-900',
+        subText: 'text-green-700',
       };
   }
 }
@@ -196,7 +197,7 @@ export function extractCustomerIdFromUrl(
   url: string
 ) {
   // Split the URL string by '/'
-  const parts = url.split("/");
+  const parts = url.split('/');
 
   // Extract the last part, which represents the customer ID
   const customerId = parts[parts.length - 1];
@@ -220,43 +221,43 @@ export const getTransactionStatus = (
   twoDaysAgo.setDate(today.getDate() - 2);
 
   return date > twoDaysAgo
-    ? "Processing"
-    : "Success";
+    ? 'Processing'
+    : 'Success';
 };
 
 export const authFormSchema = (type: string) =>
   z.object({
     // sign up
     firstName:
-      type === "sign-in"
+      type === 'sign-in'
         ? z.string().optional()
         : z.string().min(3),
     lastName:
-      type === "sign-in"
+      type === 'sign-in'
         ? z.string().optional()
         : z.string().min(3),
     address1:
-      type === "sign-in"
+      type === 'sign-in'
         ? z.string().optional()
         : z.string().max(50),
     city:
-      type === "sign-in"
+      type === 'sign-in'
         ? z.string().optional()
         : z.string().max(50),
     state:
-      type === "sign-in"
+      type === 'sign-in'
         ? z.string().optional()
         : z.string().min(2).max(2),
     postalCode:
-      type === "sign-in"
+      type === 'sign-in'
         ? z.string().optional()
         : z.string().min(3).max(6),
     dateOfBirth:
-      type === "sign-in"
+      type === 'sign-in'
         ? z.string().optional()
         : z.string().min(3),
     ssn:
-      type === "sign-in"
+      type === 'sign-in'
         ? z.string().optional()
         : z.string().min(3),
     // both
